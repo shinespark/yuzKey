@@ -59,13 +59,41 @@ public enum ConverterClientEventRouter {
             return .sendToServer
         }
 
+        if case .fallthrough = action(event: event, context: context) {
+            return .fallthroughToApplication
+        }
+        return .sendToServer
+    }
+
+    /// Server の応答は非同期のため、`handle` が返る時点では marked text が空のままになる。
+    /// その間に生のキーを application へ送る client（Ghostty など）があるので、
+    /// composition を始めるキーは入力文字を仮の marked text として同期的に表示する。
+    public static func provisionalMarkedText(
+        event: KeyEventCore,
+        context: ConverterClientEventRoutingContext
+    ) -> String? {
+        guard !context.hasPendingKeyEvents,
+              context.acknowledgedInputState.inputState == .none else {
+            return nil
+        }
+        guard case .appendPieceToMarkedText(let pieces) = action(event: event, context: context) else {
+            return nil
+        }
+        let text = pieces.inputString(preferIntention: true)
+        return text.isEmpty ? nil : text
+    }
+
+    private static func action(
+        event: KeyEventCore,
+        context: ConverterClientEventRoutingContext
+    ) -> ClientAction {
         let inputState = context.acknowledgedInputState.inputState
         let userAction = UserAction.getUserAction(
             eventCore: event,
             inputLanguage: context.acknowledgedInputLanguage,
             typeBackSlash: context.typeBackSlash
         )
-        let (action, _) = inputState.event(
+        return inputState.event(
             eventCore: event,
             userAction: userAction,
             inputLanguage: context.acknowledgedInputLanguage,
@@ -73,10 +101,6 @@ public enum ConverterClientEventRouter {
             enableDebugWindow: context.enableDebugWindow,
             enableSuggestion: context.enableSuggestion,
             candidateSelectionKeys: context.candidateSelectionKeys
-        )
-        if case .fallthrough = action {
-            return .fallthroughToApplication
-        }
-        return .sendToServer
+        ).0
     }
 }
