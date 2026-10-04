@@ -12,7 +12,7 @@ struct AppGroupTests {
 
         #expect(
             AppGroup.containerURL(homeDirectoryURL: homeDirectoryURL).path
-                == "/Users/example/Library/Group Containers/group.io.github.shinespark.inputmethod.yuzKey"
+                == "/Users/example/Library/Group Containers/39G2898H69.io.github.shinespark.inputmethod.yuzKey"
         )
     }
 }
