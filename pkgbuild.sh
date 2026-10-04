@@ -2,6 +2,7 @@ set -ex
 
 PROJECT_NAME="azooKeyMac"
 SCHEME="azooKeyMac"
+APP_NAME="yuzKey"
 CONFIGURATION="Release"
 ARCHIVE_PATH="./build/archive.xcarchive"
 EXPORT_PATH="./build/export"
@@ -36,8 +37,8 @@ xcodebuild -exportArchive \
   -allowProvisioningUpdates
 
 # 4. Notarize .app
-APP_PATH="${EXPORT_PATH}/${PROJECT_NAME}.app"
-APP_ZIP="${PROJECT_NAME}.zip"
+APP_PATH="${EXPORT_PATH}/${APP_NAME}.app"
+APP_ZIP="${APP_NAME}.zip"
 
 # Zip the .app for notarization
 ditto -c -k --sequesterRsrc --keepParent "${APP_PATH}" "${APP_ZIP}"
@@ -59,34 +60,34 @@ cp "${PKG_SCRIPTS_SOURCE_PATH}/postinstall" "${PKG_SCRIPTS_PATH}/postinstall"
 cp "./Tools/write_converter_server_launch_agent.sh" "${PKG_SCRIPTS_PATH}/write_converter_server_launch_agent.sh"
 chmod +x "${PKG_SCRIPTS_PATH}/postinstall" "${PKG_SCRIPTS_PATH}/write_converter_server_launch_agent.sh"
 
-# Suppose we have build/azooKeyMac.app
+# Suppose we have build/yuzKey.app
 # Use this script to create a plist package for distribution
 # pkgbuild --analyze --root ./build/ pkg.plist
 
 # Create a temporary package
 pkgbuild --root ${EXPORT_PATH} \
          --scripts ${PKG_SCRIPTS_PATH} \
-         --component-plist pkg.plist --identifier dev.ensan.inputmethod.azooKeyMac \
+         --component-plist pkg.plist --identifier io.github.shinespark.inputmethod.yuzKey \
          --version 0 \
          --install-location /Library/Input\ Methods \
-         azooKey-tmp.pkg
+         yuzKey-tmp.pkg
 
 # Create a distribution file
-# productbuild --synthesize --package azooKey-tmp.pkg distribution.xml
+# productbuild --synthesize --package yuzKey-tmp.pkg distribution.xml
 
 # Build the final package
-productbuild --distribution distribution.xml --package-path . azooKey-release.pkg
+productbuild --distribution distribution.xml --package-path . yuzKey-release.pkg
 
 # Clean up
-rm azooKey-tmp.pkg
+rm yuzKey-tmp.pkg
 
 # Sign Pkg
-productsign --sign "Developer ID Installer" ./azooKey-release.pkg ./azooKey-release-signed.pkg
-rm azooKey-release.pkg
+productsign --sign "Developer ID Installer" ./yuzKey-release.pkg ./yuzKey-release-signed.pkg
+rm yuzKey-release.pkg
 
 # Submit for Notarization
 # For fork developers: You would need to update `--keychain--profile "Notarytool"` part, because this is environment-depenedent command.
-xcrun notarytool submit azooKey-release-signed.pkg --keychain-profile "Notarytool" --wait
+xcrun notarytool submit yuzKey-release-signed.pkg --keychain-profile "Notarytool" --wait
 
 # Staple
-xcrun stapler staple azooKey-release-signed.pkg
+xcrun stapler staple yuzKey-release-signed.pkg
