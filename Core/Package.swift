@@ -4,7 +4,7 @@
 import PackageDescription
 
 #if os(macOS)
-let kanaKanjiConverterTraits: Set<Package.Dependency.Trait> = ["Zenzai"]
+let kanaKanjiConverterTraits: Set<Package.Dependency.Trait> = ["ZenzaiCPU"]
 #else
 // for testing in Ubuntu environment.
 let kanaKanjiConverterTraits: Set<Package.Dependency.Trait> = []
