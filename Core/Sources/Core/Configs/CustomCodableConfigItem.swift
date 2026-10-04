@@ -206,6 +206,31 @@ extension Config {
         public static let key: String = "dev.ensan.inputmethod.azooKeyMac.preference.keyboard_layout"
     }
 
+    /// 候補選択中に候補を確定するキーの設定
+    public struct CandidateSelectionKeys: CustomCodableConfigItem {
+        public enum Value: String, Codable, Equatable, Hashable, Sendable {
+            case numbers
+            case dvorakHomeRow
+
+            public var labels: [String] {
+                switch self {
+                case .numbers:
+                    ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                case .dvorakHomeRow:
+                    ["a", "o", "e", "u", "i", "d", "h", "t", "n"]
+                }
+            }
+
+            public func candidateNumber(for key: String) -> Int? {
+                self.labels.firstIndex(of: key).map { $0 + 1 }
+            }
+        }
+
+        public init() {}
+        public static let `default`: Value = .numbers
+        public static let key: String = "dev.ensan.inputmethod.azooKeyMac.preference.candidate_selection_keys"
+    }
+
     public struct AIBackendPreference: CustomCodableConfigItem {
         public enum Value: String, Codable, Equatable, Hashable, Sendable {
             case off = "Off"

@@ -44,12 +44,15 @@ class CandidatesViewController: BaseCandidateViewController {
         let isWithinShowedRows = self.showedRows.contains(row)
         let displayIndex = row - self.showedRows.lowerBound + 1 // showedRowsの下限からの相対的な位置
         let displayText: String
+        var candidateLabelPrefix: String?
 
         if isWithinShowedRows && self.showCandidateIndex {
             if displayIndex > 9 {
                 displayText = " " + candidate.text // 行番号が10以上の場合、インデントを調整
             } else {
-                displayText = "\(displayIndex). " + candidate.text
+                let prefix = "\(Config.CandidateSelectionKeys().value.labels[displayIndex - 1])."
+                candidateLabelPrefix = prefix
+                displayText = prefix + " " + candidate.text
             }
         } else {
             displayText = candidate.text // showedRowsの範囲外では番号を付けない
@@ -57,9 +60,9 @@ class CandidatesViewController: BaseCandidateViewController {
 
         // 数字部分と候補部分を別々に設定
         let attributedString = NSMutableAttributedString(string: displayText)
-        let numberRange = (displayText as NSString).range(of: "\(displayIndex).")
 
-        if numberRange.location != NSNotFound {
+        if let candidateLabelPrefix {
+            let numberRange = NSRange(location: 0, length: (candidateLabelPrefix as NSString).length)
             attributedString.addAttributes([
                 .font: NSFont.monospacedSystemFont(ofSize: 8, weight: .regular),
                 .foregroundColor: currentSelectedRow == row ? NSColor.white : NSColor.gray,

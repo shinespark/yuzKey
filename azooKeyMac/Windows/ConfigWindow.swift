@@ -821,7 +821,7 @@ struct ConfigWindow: View {
             converterSettingSection(
                 title: "キーボード配列",
                 systemImage: "keyboard.badge.ellipsis",
-                keys: [Config.KeyboardLayout.key]
+                keys: [Config.KeyboardLayout.key, Config.CandidateSelectionKeys.key]
             )
         }
         .formStyle(.grouped)

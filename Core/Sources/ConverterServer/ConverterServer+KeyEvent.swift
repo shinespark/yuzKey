@@ -62,7 +62,8 @@ extension ConverterServer {
             inputLanguage: session.inputLanguage,
             liveConversionEnabled: request.liveConversionEnabled,
             enableDebugWindow: request.enableDebugWindow,
-            enableSuggestion: request.enableSuggestion
+            enableSuggestion: request.enableSuggestion,
+            candidateSelectionKeys: request.candidateSelectionKeys
         )
 
         var effects: [ConverterClientEffect] = []

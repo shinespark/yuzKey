@@ -19,6 +19,7 @@ public struct ConverterClientEventRoutingContext: Sendable, Equatable {
     public var enableDebugWindow: Bool
     public var enableSuggestion: Bool
     public var typeBackSlash: Bool
+    public var candidateSelectionKeys: Config.CandidateSelectionKeys.Value
 
     public init(
         acknowledgedInputState: ConverterInputState = .none,
@@ -27,7 +28,8 @@ public struct ConverterClientEventRoutingContext: Sendable, Equatable {
         liveConversionEnabled: Bool = true,
         enableDebugWindow: Bool = false,
         enableSuggestion: Bool = false,
-        typeBackSlash: Bool = false
+        typeBackSlash: Bool = false,
+        candidateSelectionKeys: Config.CandidateSelectionKeys.Value = .numbers
     ) {
         self.acknowledgedInputState = acknowledgedInputState
         self.acknowledgedInputLanguage = acknowledgedInputLanguage
@@ -36,6 +38,7 @@ public struct ConverterClientEventRoutingContext: Sendable, Equatable {
         self.enableDebugWindow = enableDebugWindow
         self.enableSuggestion = enableSuggestion
         self.typeBackSlash = typeBackSlash
+        self.candidateSelectionKeys = candidateSelectionKeys
     }
 }
 
@@ -68,7 +71,8 @@ public enum ConverterClientEventRouter {
             inputLanguage: context.acknowledgedInputLanguage,
             liveConversionEnabled: context.liveConversionEnabled,
             enableDebugWindow: context.enableDebugWindow,
-            enableSuggestion: context.enableSuggestion
+            enableSuggestion: context.enableSuggestion,
+            candidateSelectionKeys: context.candidateSelectionKeys
         )
         if case .fallthrough = action {
             return .fallthroughToApplication

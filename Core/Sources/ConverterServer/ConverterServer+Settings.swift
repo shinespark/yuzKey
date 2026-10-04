@@ -114,6 +114,16 @@ extension ConverterServer {
                 value: .string(Config.KeyboardLayout().value.rawValue)
             ),
             descriptor(
+                key: Config.CandidateSelectionKeys.key,
+                title: "候補選択キー",
+                section: "キーボード配列",
+                kind: .selector(options: [
+                    .init(title: "1〜9", value: .string(Config.CandidateSelectionKeys.Value.numbers.rawValue)),
+                    .init(title: "aoeuidhtn（Dvorak）", value: .string(Config.CandidateSelectionKeys.Value.dvorakHomeRow.rawValue))
+                ]),
+                value: .string(Config.CandidateSelectionKeys().value.rawValue)
+            ),
+            descriptor(
                 key: Config.ZenzaiProfile.key,
                 title: "変換プロフィール",
                 section: "変換設定",
@@ -253,6 +263,12 @@ extension ConverterServer {
                 throw ConverterServerError.invalidSettingValue(key)
             }
             Config.KeyboardLayout().value = layout
+        case Config.CandidateSelectionKeys.key:
+            guard case .string(let rawValue) = value,
+                  let keys = Config.CandidateSelectionKeys.Value(rawValue: rawValue) else {
+                throw ConverterServerError.invalidSettingValue(key)
+            }
+            Config.CandidateSelectionKeys().value = keys
         case Config.ZenzaiProfile.key:
             guard case .string(let value) = value else {
                 throw ConverterServerError.invalidSettingValue(key)

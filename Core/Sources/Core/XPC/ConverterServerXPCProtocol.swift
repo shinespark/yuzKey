@@ -350,6 +350,7 @@ public struct ConverterKeyEventRequest: Codable, Sendable, Equatable {
     public var enableTypoCorrection: Bool
     public var enableOptionDirectFullWidthInput: Bool
     public var typeBackSlash: Bool
+    public var candidateSelectionKeys: Config.CandidateSelectionKeys.Value
     public var optionDirectInputText: String?
     public var context: ConverterTextContext
     public var activation: ConverterSessionActivation?
@@ -366,6 +367,7 @@ public struct ConverterKeyEventRequest: Codable, Sendable, Equatable {
         enableTypoCorrection: Bool = false,
         enableOptionDirectFullWidthInput: Bool = false,
         typeBackSlash: Bool = false,
+        candidateSelectionKeys: Config.CandidateSelectionKeys.Value = .numbers,
         optionDirectInputText: String? = nil,
         context: ConverterTextContext = .init(),
         activation: ConverterSessionActivation? = nil,
@@ -381,6 +383,7 @@ public struct ConverterKeyEventRequest: Codable, Sendable, Equatable {
         self.enableTypoCorrection = enableTypoCorrection
         self.enableOptionDirectFullWidthInput = enableOptionDirectFullWidthInput
         self.typeBackSlash = typeBackSlash
+        self.candidateSelectionKeys = candidateSelectionKeys
         self.optionDirectInputText = optionDirectInputText
         self.context = context
         self.activation = activation
