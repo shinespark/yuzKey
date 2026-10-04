@@ -1,7 +1,7 @@
 import Foundation
 
 public enum AppGroup {
-    public static let azooKeyMacIdentifier = "group.dev.ensan.inputmethod.azooKeyMac"
+    public static let azooKeyMacIdentifier = "group.io.github.shinespark.inputmethod.yuzKey"
 
     #if os(macOS)
     public static func containerURL(fileManager: FileManager = .default) -> URL? {
