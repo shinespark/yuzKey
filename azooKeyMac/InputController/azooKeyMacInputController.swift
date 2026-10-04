@@ -344,7 +344,8 @@ class azooKeyMacInputController: IMKInputController, NSMenuItemValidation { // s
                 liveConversionEnabled: Config.LiveConversion().value,
                 enableDebugWindow: Config.DebugWindow().value,
                 enableSuggestion: enableSuggestion,
-                typeBackSlash: Config.TypeBackSlash().value
+                typeBackSlash: Config.TypeBackSlash().value,
+                candidateSelectionKeys: Config.CandidateSelectionKeys().value
             )
         )
         guard disposition == .sendToServer else {
@@ -363,6 +364,7 @@ class azooKeyMacInputController: IMKInputController, NSMenuItemValidation { // s
             enableTypoCorrection: Config.DebugTypoCorrection().value,
             enableOptionDirectFullWidthInput: Config.OptionDirectFullWidthInput().value,
             typeBackSlash: Config.TypeBackSlash().value,
+            candidateSelectionKeys: Config.CandidateSelectionKeys().value,
             optionDirectInputText: optionDirectInputText,
             context: self.currentConverterTextContext(),
             activation: self.pendingConverterServerActivation

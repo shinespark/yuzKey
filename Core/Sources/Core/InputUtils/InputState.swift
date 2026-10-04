@@ -18,7 +18,8 @@ public enum InputState: Sendable, Hashable {
         inputLanguage: InputLanguage,
         liveConversionEnabled: Bool,
         enableDebugWindow: Bool,
-        enableSuggestion: Bool
+        enableSuggestion: Bool,
+        candidateSelectionKeys: Config.CandidateSelectionKeys.Value = .numbers
     ) -> (ClientAction, ClientActionCallback) {
         if event.modifierFlags.contains(.command) {
             return (.fallthrough, .fallthrough)
@@ -263,6 +264,11 @@ public enum InputState: Sendable, Hashable {
             switch userAction {
             case .input(let string):
                 let s = string.inputString(preferIntention: true)
+                if candidateSelectionKeys != .numbers,
+                   event.modifierFlags.isDisjoint(with: [.shift, .option, .control]),
+                   let number = candidateSelectionKeys.candidateNumber(for: s) {
+                    return (.selectNumberCandidate(number), .basedOnSubmitCandidate(ifIsEmpty: .none, ifIsNotEmpty: .previewing))
+                }
                 if s == "d" && enableDebugWindow {
                     return (.enableDebugWindow, .fallthrough)
                 } else if s == "D" && enableDebugWindow {
@@ -323,7 +329,10 @@ public enum InputState: Sendable, Hashable {
             case .number(let num):
                 switch num {
                 case .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
-                    return (.selectNumberCandidate(num.intValue), .basedOnSubmitCandidate(ifIsEmpty: .none, ifIsNotEmpty: .previewing))
+                    if candidateSelectionKeys == .numbers {
+                        return (.selectNumberCandidate(num.intValue), .basedOnSubmitCandidate(ifIsEmpty: .none, ifIsNotEmpty: .previewing))
+                    }
+                    return (.commitMarkedTextAndAppendPieceToMarkedText([num.inputPiece]), .transition(.composing))
                 case .zero, .shiftZero:
                     return (.commitMarkedTextAndAppendPieceToMarkedText([num.inputPiece]), .transition(.composing))
                 }
