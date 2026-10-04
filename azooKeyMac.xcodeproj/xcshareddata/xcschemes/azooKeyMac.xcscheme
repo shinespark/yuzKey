@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1A41E61326E745D9009B65D7"
-               BuildableName = "azooKeyMac.app"
+               BuildableName = "yuzKey.app"
                BlueprintName = "azooKeyMac"
                ReferencedContainer = "container:azooKeyMac.xcodeproj">
             </BuildableReference>
@@ -67,7 +67,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A41E61326E745D9009B65D7"
-            BuildableName = "azooKeyMac.app"
+            BuildableName = "yuzKey.app"
             BlueprintName = "azooKeyMac"
             ReferencedContainer = "container:azooKeyMac.xcodeproj">
          </BuildableReference>
@@ -84,7 +84,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A41E61326E745D9009B65D7"
-            BuildableName = "azooKeyMac.app"
+            BuildableName = "yuzKey.app"
             BlueprintName = "azooKeyMac"
             ReferencedContainer = "container:azooKeyMac.xcodeproj">
          </BuildableReference>

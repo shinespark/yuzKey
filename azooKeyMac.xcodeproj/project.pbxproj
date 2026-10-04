@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A41E61426E745D9009B65D7 /* azooKeyMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = azooKeyMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A41E61426E745D9009B65D7 /* yuzKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yuzKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A41E61B26E745DD009B65D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A41E62426E745DD009B65D7 /* azooKeyMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = azooKeyMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A41E62E26E745DD009B65D7 /* azooKeyMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = azooKeyMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +109,7 @@
 		1A41E61526E745D9009B65D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A41E61426E745D9009B65D7 /* azooKeyMac.app */,
+				1A41E61426E745D9009B65D7 /* yuzKey.app */,
 				1A41E62426E745DD009B65D7 /* azooKeyMacTests.xctest */,
 				1A41E62E26E745DD009B65D7 /* azooKeyMacUITests.xctest */,
 			);
@@ -177,7 +177,7 @@
 				554A265F2DB37657003C5CFB /* Core */,
 			);
 			productName = azooKeyMac;
-			productReference = 1A41E61426E745D9009B65D7 /* azooKeyMac.app */;
+			productReference = 1A41E61426E745D9009B65D7 /* yuzKey.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1A41E62326E745DD009B65D7 /* azooKeyMacTests */ = {
@@ -529,7 +529,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shinespark.inputmethod.yuzKey;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = azooKeyMac;
+				PRODUCT_NAME = yuzKey;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
@@ -565,7 +566,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.shinespark.inputmethod.yuzKey;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = azooKeyMac;
+				PRODUCT_NAME = yuzKey;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
@@ -595,7 +597,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/azooKeyMac.app/Contents/MacOS/azooKeyMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yuzKey.app/Contents/MacOS/yuzKey";
 			};
 			name = Debug;
 		};
@@ -622,7 +624,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/azooKeyMac.app/Contents/MacOS/azooKeyMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yuzKey.app/Contents/MacOS/yuzKey";
 			};
 			name = Release;
 		};
