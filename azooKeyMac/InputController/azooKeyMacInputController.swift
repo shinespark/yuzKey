@@ -335,21 +335,25 @@ class azooKeyMacInputController: IMKInputController, NSMenuItemValidation { // s
         enableSuggestion: Bool,
         optionDirectInputText: String? = nil
     ) -> Bool {
-        let disposition = ConverterClientEventRouter.disposition(
-            event: event,
-            context: .init(
-                acknowledgedInputState: ConverterInputState(self.inputState),
-                acknowledgedInputLanguage: self.inputLanguage,
-                hasPendingKeyEvents: self.pendingKeyEventCount > 0,
-                liveConversionEnabled: Config.LiveConversion().value,
-                enableDebugWindow: Config.DebugWindow().value,
-                enableSuggestion: enableSuggestion,
-                typeBackSlash: Config.TypeBackSlash().value,
-                candidateSelectionKeys: Config.CandidateSelectionKeys().value
-            )
+        let routingContext = ConverterClientEventRoutingContext(
+            acknowledgedInputState: ConverterInputState(self.inputState),
+            acknowledgedInputLanguage: self.inputLanguage,
+            hasPendingKeyEvents: self.pendingKeyEventCount > 0,
+            liveConversionEnabled: Config.LiveConversion().value,
+            enableDebugWindow: Config.DebugWindow().value,
+            enableSuggestion: enableSuggestion,
+            typeBackSlash: Config.TypeBackSlash().value,
+            candidateSelectionKeys: Config.CandidateSelectionKeys().value
         )
-        guard disposition == .sendToServer else {
+        guard ConverterClientEventRouter.disposition(event: event, context: routingContext) == .sendToServer else {
             return false
+        }
+        if let provisionalMarkedText = ConverterClientEventRouter.provisionalMarkedText(event: event, context: routingContext) {
+            self.client()?.setMarkedText(
+                provisionalMarkedText,
+                selectionRange: NSRange(location: provisionalMarkedText.utf16.count, length: 0),
+                replacementRange: NSRange(location: NSNotFound, length: 0)
+            )
         }
 
         self.nextKeyEventID &+= 1
@@ -383,6 +387,7 @@ class azooKeyMacInputController: IMKInputController, NSMenuItemValidation { // s
                 }
                 guard let response else {
                     self.appendDebugMessage("ConverterServer dropped key event \(request.eventID)")
+                    self.refreshMarkedText()
                     return
                 }
                 if !response.handled {

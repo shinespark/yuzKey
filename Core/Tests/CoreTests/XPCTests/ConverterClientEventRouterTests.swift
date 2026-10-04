@@ -83,3 +83,42 @@ private func disposition(
     #expect(disposition(event: event) == .fallthroughToApplication)
     #expect(disposition(event: event, state: .composing) == .sendToServer)
 }
+
+private func provisionalMarkedText(
+    event: KeyEventCore,
+    state: ConverterInputState = .none,
+    language: InputLanguage = .japanese,
+    hasPendingKeyEvents: Bool = false
+) -> String? {
+    ConverterClientEventRouter.provisionalMarkedText(
+        event: event,
+        context: .init(
+            acknowledgedInputState: state,
+            acknowledgedInputLanguage: language,
+            hasPendingKeyEvents: hasPendingKeyEvents
+        )
+    )
+}
+
+private let letterH = KeyEventCore(
+    modifierFlags: [],
+    characters: "h",
+    charactersIgnoringModifiers: "h",
+    keyCode: 4
+)
+
+@Test func compositionStartingKeyHasProvisionalMarkedText() {
+    #expect(provisionalMarkedText(event: letterH) == "h")
+}
+
+@Test func provisionalMarkedTextIsNilWhileComposing() {
+    #expect(provisionalMarkedText(event: letterH, state: .composing) == nil)
+}
+
+@Test func provisionalMarkedTextIsNilWhileEarlierKeyEventIsPending() {
+    #expect(provisionalMarkedText(event: letterH, hasPendingKeyEvents: true) == nil)
+}
+
+@Test func provisionalMarkedTextIsNilInEnglishMode() {
+    #expect(provisionalMarkedText(event: letterH, language: .english) == nil)
+}
