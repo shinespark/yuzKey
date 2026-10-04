@@ -6,7 +6,7 @@
   
 */
 
-CFBundleName = "azooKey";
+CFBundleName = "yuzKey";
 
-com.apple.inputmethod.Roman = "azooKey (English)";
-com.apple.inputmethod.Japanese = "azooKey (日本語)";
+com.apple.inputmethod.Roman = "yuzKey (English)";
+com.apple.inputmethod.Japanese = "yuzKey (日本語)";

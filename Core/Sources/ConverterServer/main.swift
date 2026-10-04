@@ -4,7 +4,7 @@ import Foundation
 import KanaKanjiConverterModuleWithDefaultDictionary
 
 private enum ConverterServerXPC {
-    static let machServiceName = "dev.ensan.inputmethod.azooKeyMac.ConverterServer"
+    static let machServiceName = "io.github.shinespark.inputmethod.yuzKey.ConverterServer"
 }
 
 @objc private protocol ConverterServerXPCProtocol {

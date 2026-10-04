@@ -1,8 +1,8 @@
 #!/bin/sh
 set -eu
 
-service_name="dev.ensan.inputmethod.azooKeyMac.ConverterServer"
-app_path="/Library/Input Methods/azooKeyMac.app"
+service_name="io.github.shinespark.inputmethod.yuzKey.ConverterServer"
+app_path="/Library/Input Methods/yuzKey.app"
 server_path="${app_path}/Contents/MacOS/ConverterServer"
 agent_dir="/Library/LaunchAgents"
 agent_path="${agent_dir}/${service_name}.plist"
