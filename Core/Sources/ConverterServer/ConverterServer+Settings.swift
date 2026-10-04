@@ -119,6 +119,7 @@ extension ConverterServer {
                 section: "キーボード配列",
                 kind: .selector(options: [
                     .init(title: "1〜9", value: .string(Config.CandidateSelectionKeys.Value.numbers.rawValue)),
+                    .init(title: "asdfghjkl（QWERTY）", value: .string(Config.CandidateSelectionKeys.Value.qwertyHomeRow.rawValue)),
                     .init(title: "aoeuidhtn（Dvorak）", value: .string(Config.CandidateSelectionKeys.Value.dvorakHomeRow.rawValue))
                 ]),
                 value: .string(Config.CandidateSelectionKeys().value.rawValue)

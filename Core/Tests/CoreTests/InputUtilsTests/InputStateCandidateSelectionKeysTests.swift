@@ -44,6 +44,20 @@ struct InputStateCandidateSelectionKeysTests {
         #expect(number == expectedNumber)
     }
 
+    @Test("QWERTYのホーム段で候補を確定する", arguments: zip(["a", "s", "d", "f", "g", "h", "j", "k", "l"], 1...9))
+    func qwertyHomeRowSelectsCandidate(key: String, expectedNumber: Int) {
+        let action = selectingEvent(
+            characterEvent(key, keyCode: 0),
+            userAction: .input([.character(Character(key))]),
+            candidateSelectionKeys: .qwertyHomeRow
+        )
+        guard case .selectNumberCandidate(let number) = action else {
+            Issue.record("Expected selectNumberCandidate, got \(action)")
+            return
+        }
+        #expect(number == expectedNumber)
+    }
+
     @Test("Dvorakのホーム段以外の文字は確定して入力を続ける")
     func otherCharacterContinuesInput() {
         let action = selectingEvent(

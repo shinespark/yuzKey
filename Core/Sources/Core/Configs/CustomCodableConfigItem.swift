@@ -210,12 +210,15 @@ extension Config {
     public struct CandidateSelectionKeys: CustomCodableConfigItem {
         public enum Value: String, Codable, Equatable, Hashable, Sendable {
             case numbers
+            case qwertyHomeRow
             case dvorakHomeRow
 
             public var labels: [String] {
                 switch self {
                 case .numbers:
                     ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                case .qwertyHomeRow:
+                    ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
                 case .dvorakHomeRow:
                     ["a", "o", "e", "u", "i", "d", "h", "t", "n"]
                 }
